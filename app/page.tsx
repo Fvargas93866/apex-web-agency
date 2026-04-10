@@ -67,6 +67,7 @@ export default function AgencyWebsite() {
   // Main page switcher + intro overlay + thank-you popup.
   const [currentPage, setCurrentPage] = useState<PageId>("home");
   const [entered, setEntered] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const [activeConcept, setActiveConcept] = useState<PortfolioItem | null>(null);
@@ -269,7 +270,10 @@ export default function AgencyWebsite() {
     const active = currentPage === item.id;
     return (
       <button
-        onClick={() => setCurrentPage(item.id)}
+        onClick={() => {
+          setCurrentPage(item.id);
+          setMobileMenuOpen(false);
+        }}
         className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
           active
             ? "bg-[linear-gradient(135deg,#d4af37,#c0c0c0,#ffffff)] text-zinc-900 shadow"
@@ -284,7 +288,7 @@ export default function AgencyWebsite() {
 
   const HomePage = () => (
     <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }}>
-      <section className="mx-auto max-w-7xl px-6 pt-16 pb-10 md:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pt-12 pb-10 md:px-6 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#d4af37]/30 bg-white/80 px-4 py-2 text-sm text-[#8b6b00] shadow-sm">
@@ -340,7 +344,7 @@ export default function AgencyWebsite() {
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-3 gap-3">
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div className="rounded-[1.25rem] bg-white/90 p-4">
                   <Palette className="h-5 w-5 text-[#b8860b]" />
                   <div className="mt-2 text-sm font-semibold text-zinc-900">Premium style</div>
@@ -355,7 +359,7 @@ export default function AgencyWebsite() {
                 </div>
               </div>
 
-              <div className="mt-4 flex items-center justify-between">
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <button
                   onClick={() => setHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
                   className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20"
@@ -374,7 +378,7 @@ export default function AgencyWebsite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-14">
+      <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-[2rem] border border-black/5 bg-[linear-gradient(135deg,#111827,#3f3f46,#1f2937)] p-8 text-white shadow-xl">
             <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#f8e7a1]">Why clients buy</div>
@@ -400,7 +404,7 @@ export default function AgencyWebsite() {
   );
 
   const ServicesPage = () => (
-    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-6 py-14">
+    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-4 py-14 md:px-6">
       <SectionHeader
         eyebrow="Services"
         title="Everything I can build for your business."
@@ -448,7 +452,7 @@ export default function AgencyWebsite() {
   );
 
   const PricingPage = () => (
-    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-6 py-14">
+    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-4 py-14 md:px-6">
       <SectionHeader
         eyebrow="Pricing"
         title="Fair pricing that still feels premium."
@@ -552,7 +556,7 @@ export default function AgencyWebsite() {
     };
 
     return (
-      <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-6 py-14">
+      <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-4 py-14 md:px-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <SectionHeader eyebrow="Visual concepts" title="Show clients the standard they could have." text={null} />
           <div className="max-w-xl text-zinc-600">These concepts are styled to feel different from Apex so clients can picture a website tailored to their own brand, not yours.</div>
@@ -639,7 +643,7 @@ export default function AgencyWebsite() {
     const detail = conceptDetails[activeConcept.detailPage];
 
     return (
-      <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-6 py-14">
+      <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-4 py-14 md:px-6">
         <div className={`overflow-hidden rounded-[2.5rem] border border-black/5 bg-gradient-to-b ${detail.bg} shadow-sm`}>
           <div className="grid gap-10 p-8 md:grid-cols-[1fr_0.95fr] md:p-12">
             <div>
@@ -706,7 +710,7 @@ export default function AgencyWebsite() {
   };
 
   const ContactPage = () => (
-    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-6 py-14">
+    <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.45 }} className="mx-auto max-w-7xl px-4 py-14 md:px-6">
       <div className="overflow-hidden rounded-[2.25rem] border border-black/5 bg-[linear-gradient(135deg,#111827,#3f3f46,#18181b)] p-8 text-white shadow-2xl md:p-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
@@ -790,15 +794,9 @@ export default function AgencyWebsite() {
   return (
     <>
       <style jsx global>{`
-        @font-face {
-          font-family: 'PluvixLuxury';
-          src: url('/fonts/PluvixLuxury-Regular.otf') format('opentype');
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
         :root {
-          --font-pluvix: 'PluvixLuxury', 'Times New Roman', serif;
+          /* Font fallback: replace with your real luxury font later if you want. */
+          --font-pluvix: 'Georgia', 'Times New Roman', serif;
         }
       `}</style>
 
@@ -853,11 +851,19 @@ export default function AgencyWebsite() {
 
         <motion.div animate={{ opacity: entered ? 1 : 0.2 }} transition={{ duration: 0.8 }}>
           <header className="sticky top-0 z-30 border-b border-black/5 bg-white/65 backdrop-blur-xl">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
               <div className="flex items-center gap-3">
-                <div className="rounded-2xl border border-[#d4af37]/30 bg-white/70 p-2 shadow-sm">
+                <button
+                  onClick={() => {
+                    setCurrentPage("home");
+                    setActiveConcept(null);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="rounded-2xl border border-[#d4af37]/30 bg-white/70 p-2 shadow-sm transition hover:bg-white"
+                  aria-label="Back to home"
+                >
                   <Feather className="h-5 w-5 -rotate-[34deg] text-[#b8860b]" />
-                </div>
+                </button>
                 <div>
                   <div className="text-lg tracking-tight" style={{ fontFamily: "var(--font-pluvix)" }}>{brand.name}</div>
                   <div className="text-sm text-zinc-500">Luxury web design • launch • support</div>
@@ -869,10 +875,40 @@ export default function AgencyWebsite() {
                   <NavButton key={item.id} item={item} />
                 ))}
               </nav>
+
+              <button
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm md:hidden"
+                aria-label="Toggle menu"
+              >
+                Menu
+              </button>
             </div>
+
+            {mobileMenuOpen && (
+              <div className="border-t border-black/5 bg-white/90 px-4 py-4 backdrop-blur md:hidden">
+                <div className="mb-3 flex gap-2">
+                  <button
+                    onClick={() => {
+                      setCurrentPage("home");
+                      setActiveConcept(null);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="rounded-full bg-[linear-gradient(135deg,#d4af37,#c0c0c0,#ffffff)] px-4 py-2 text-sm font-medium text-zinc-900 shadow"
+                  >
+                    Back to home
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {navItems.map((item) => (
+                    <NavButton key={item.id} item={item} />
+                  ))}
+                </div>
+              </div>
+            )}
           </header>
 
-          <div className="mx-auto max-w-7xl px-6 pt-8">
+          <div className="mx-auto max-w-7xl px-4 pt-6 md:px-6 md:pt-8">
             <div className="rounded-[2rem] border border-black/5 bg-white/70 px-6 py-5 shadow-sm backdrop-blur">
               <div className="text-sm uppercase tracking-[0.18em] text-[#8b6b00]">Apex Web Agency</div>
               <div className="mt-2 text-2xl tracking-tight text-zinc-900 md:text-3xl" style={{ fontFamily: "var(--font-pluvix)" }}>
